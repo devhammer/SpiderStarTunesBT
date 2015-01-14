@@ -1,4 +1,5 @@
 SpiderStarTunesBT
+=================
 
 This project came out of a desire to do something fun and interesting to help celebrate Christmas. I'm a huge fan of blinky lights, and during the 2014 black Friday/cyber Monday period, I managed to pick up some WS2812 RGB LED strips at a great price (4 meters worth), so I knew I needed to find a cool project to use them on.
 
@@ -16,7 +17,7 @@ Once each given segment was wired, I initially tested the strips using a Pololu 
 
 Once having completed assembly of the star and LEDs, I secured the points where the wire went through the PVC with hot glue, and moved on to the Gadgeteer software.
 
-Unlike Arduino boards, you can't simply bit-bang the signal for a WS2812 RGB LED strip with NETMF/Gadgeteer, because you can't really bit-bang that fast with managed code. However, it IS possible to run these strips via SPI, and [one of the nice community members](https://www.ghielectronics.com/community/user/2604) on the GHI Forums provided [a library for doing just that](https://www.ghielectronics.com/community/codeshare/entry/649). There's also [an updated version of the library here](https://www.ghielectronics.com/community/codeshare/entry/977) that addresses an issue I also ran into.
+Unlike Arduino boards, you can't simply bit-bang the signal for a WS2812 RGB LED strip with NETMF/Gadgeteer, because you can't really bit-bang that fast with managed code. However, it IS possible to run these strips via SPI, and <a href="https://www.ghielectronics.com/community/user/2604">one of the nice community members</a> on the GHI Forums provided <a href="https://www.ghielectronics.com/community/codeshare/entry/649">a library for doing just that</a>. There's also <a href="https://www.ghielectronics.com/community/codeshare/entry/977">an updated version of the library here</a> that addresses an issue I also ran into.
 
 I'm using the GHI FEZ Spider mainboard, a MakeWire module (3rd party Gadgeteer module that breaks out all the signal wires) to connect the LED strips, a GHI Tunes module (piezo buzzer) for music, and a GHI Bluetooth module for serial communication, and to control the patterns and song playback.
 
