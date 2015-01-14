@@ -120,8 +120,45 @@ namespace SpiderStarTunesBT
             MyWS2811Strip.Transmit();
         }
 
+        public void chaseRedGreen()
+        {
+            clear();
+            for (int i = 0; i < 190; i++)
+            {
+                byte r = 0;
+                byte g = 0;
+                byte b = 0;
+
+                if (i % 19 == 0)
+                {
+                    clear();
+                }
+
+                if (i % 2 == 0)
+                {
+                    g = 255;
+                }
+                else
+                {
+                    r = 255;
+                }
+
+                if (i > 0)
+                {
+                    MyWS2811Strip.Shift();
+                }
+
+                MyWS2811Strip.Set(0, r, g, b);
+                MyWS2811Strip.Transmit();
+
+                Thread.Sleep(200);
+            }
+            clear();
+        }
+
         public void fadeInOut()
         {
+            clear();
             for (int i = 0; i < 10; i++)
             {
                 byte r = 0;
@@ -174,8 +211,123 @@ namespace SpiderStarTunesBT
             }
         }
 
+        public void randomRedGreenPixels()
+        {
+            clear();
+            Random rnd = new Random();
+            for (int i = 0; i < 250; i++)
+            {
+                byte r = 0;
+                byte g = 0;
+                byte b = 0;
+                int pixelToBlink = 0;
+
+                pixelToBlink = rnd.Next(19);
+
+                if (i % 2 == 0)
+                {
+                    g = 255;
+                }
+                else
+                {
+                    clear();
+                    r = 255;
+                }
+
+                if (i % 3 == 0)
+                {
+                    r = 255;
+                    g = 255;
+                    b = 255;
+                }
+
+                MyWS2811Strip.Set(pixelToBlink, r, g, b);
+                MyWS2811Strip.Transmit();
+
+                Thread.Sleep(50);
+            }
+            clear();
+        }
+
+        public void rings()
+        {
+            clear();
+            for (int i = 0; i < 12; i++)
+            {
+                byte r = 0;
+                byte g = 0;
+                byte b = 0;
+
+                if (i % 2 == 0)
+                {
+                    g = 255;
+                }
+                else
+                {
+                    r = 255;
+                }
+
+                setCenterLED(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setRing1LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setRing2LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setRing3LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                clear();
+            }
+        }
+
+        public void ringsIn()
+        {
+            clear();
+            for (int i = 0; i < 12; i++)
+            {
+                byte r = 0;
+                byte g = 0;
+                byte b = 0;
+
+                if (i % 2 == 0)
+                {
+                    g = 255;
+                }
+                else
+                {
+                    r = 255;
+                }
+
+                setRing3LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setRing2LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setRing1LEDs(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                setCenterLED(r, g, b, true);
+
+                Thread.Sleep(150);
+
+                clear();
+            }
+        }
+
         public void ringsSolid()
         {
+            clear();
             for (int i = 0; i < 12; i++)
             {
                 byte r = 0;
@@ -214,6 +366,7 @@ namespace SpiderStarTunesBT
 
         public void ringsSolidIn()
         {
+            clear();
             for (int i = 0; i < 12; i++)
             {
                 byte r = 0;
@@ -253,6 +406,7 @@ namespace SpiderStarTunesBT
 
         public void rotateLines()
         {
+            clear();
             for (int i = 0; i < 12; i++)
             {
                 byte r = 0;
@@ -288,94 +442,5 @@ namespace SpiderStarTunesBT
             //    startNextPattern(NextPattern);
         }
 
-        public void rings()
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                byte r = 0;
-                byte g = 0;
-                byte b = 0;
-
-                if (i % 2 == 0)
-                {
-                    g = 255;
-                }
-                else
-                {
-                    r = 255;
-                }
-
-                setCenterLED(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setRing1LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setRing2LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setRing3LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                clear();
-            }
-        }
-
-        public void ringsIn()
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                byte r = 0;
-                byte g = 0;
-                byte b = 0;
-
-                if (i % 2 == 0)
-                {
-                    g = 255;
-                }
-                else
-                {
-                    r = 255;
-                }
-
-                setRing3LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setRing2LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setRing1LEDs(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                setCenterLED(r, g, b, true);
-
-                Thread.Sleep(150);
-
-                clear();
-            }
-        }
-
-        private void startNextPattern(int NextPattern)
-        {
-            //switch (NextPattern)
-            //{
-            //    case 1:
-            //        ringsSolid(2);
-            //        break;
-            //    case 2:
-            //        rotateLines(3);
-            //        break;
-            //    case 3:
-            //        rings(1);
-            //        break;
-            //}
-        }
     }
 }

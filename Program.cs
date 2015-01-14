@@ -36,7 +36,7 @@ namespace SpiderStarTunesBT
         GT.Timer randomModeTimer;
         Random rnd;
         int randomPattern = 0;
-        int patternCount = 6;
+        int patternCount = 8;
 
         // This method is run when the mainboard is powered up or reset.   
         void ProgramStarted()
@@ -100,6 +100,14 @@ namespace SpiderStarTunesBT
                     case 5:
                         sendIfConnected("Starting pattern ringsSolidIn");
                         _blinkyThread = new Thread(new ThreadStart(_starLEDs.ringsSolidIn));
+                        break;
+                    case 6:
+                        sendIfConnected("Starting pattern randomRedGreenPixels");
+                        _blinkyThread = new Thread(new ThreadStart(_starLEDs.randomRedGreenPixels));
+                        break;
+                    case 7:
+                        sendIfConnected("Starting pattern chaseRedGreen");
+                        _blinkyThread = new Thread(new ThreadStart(_starLEDs.chaseRedGreen));
                         break;
                 }
 
@@ -224,6 +232,22 @@ namespace SpiderStarTunesBT
                         this._blinkyThread.Abort();
 
                     _blinkyThread = new Thread(new ThreadStart(_starLEDs.fadeInOut));
+                    _blinkyThread.Start();
+                    break;
+                case "7": // randomRedGreenPixels
+                    sendIfConnected("Starting pattern randomRedGreenPixels");
+                    if (this._blinkyThread != null && this._blinkyThread.IsAlive)
+                        this._blinkyThread.Abort();
+
+                    _blinkyThread = new Thread(new ThreadStart(_starLEDs.randomRedGreenPixels));
+                    _blinkyThread.Start();
+                    break;
+                case "8": // chaseRedGreen
+                    sendIfConnected("Starting pattern chaseRedGreen");
+                    if (this._blinkyThread != null && this._blinkyThread.IsAlive)
+                        this._blinkyThread.Abort();
+
+                    _blinkyThread = new Thread(new ThreadStart(_starLEDs.chaseRedGreen));
                     _blinkyThread.Start();
                     break;
             }

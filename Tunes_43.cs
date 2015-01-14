@@ -1,3 +1,15 @@
+/* 
+ * Tunes Module Driver for NETMF 4.3 
+ * Modified from https://bitbucket.org/ghi_elect/gadgeteer/raw/0a3dd5081b0bcfc25d57c6e35663a91550eecbc1/Modules/GHIElectronics/Tunes/Tunes_43/Tunes_43.cs
+ * 
+ * Modifications:
+ * 
+ * - Add more named notes (down to C2 and up to C6)
+ * - Fix a bug in the MusicNote constructor that incorrectly throws an exception when Timeout.Infinite (-1) is passed as the duration.
+ * - Fix a typo in the name of the Duration property of the MusicNote class
+ * 
+ */
+
 using System;
 using System.Collections;
 using System.Threading;
@@ -282,7 +294,9 @@ namespace Gadgeteer.Modules.GHIElectronics
             /// <param name="duration">The duration that the note should be played in milliseconds.</param>
             public MusicNote(Tone tone, int duration)
             {
-                if (duration < 1) throw new ArgumentOutOfRangeException("duration", "duration must be positive.");
+                // Updated to allow Timeout.Infinite as a valid value
+                if ((duration < 1) && (duration != -1)) 
+                    throw new ArgumentOutOfRangeException("duration", "Duration must be positive or infinite (-1).");
 
                 this.Tone = tone;
                 this.Duration = duration;
@@ -316,9 +330,7 @@ namespace Gadgeteer.Modules.GHIElectronics
         /// <param name="tone">The tone to play.</param>
         public void Play(Tone tone)
         {
-            // hacked around bug in duration...
-            this.Play(new MusicNote(tone, 1000));
-            //this.Play(new MusicNote(tone, Timeout.Infinite));
+            this.Play(new MusicNote(tone, Timeout.Infinite));
         }
 
         /// <summary>

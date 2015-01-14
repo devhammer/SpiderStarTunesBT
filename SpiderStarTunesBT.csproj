@@ -48,6 +48,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RttlMelody.cs" />
     <Compile Include="StarLEDs.cs" />
     <Compile Include="Tunes_43.cs" />
     <Compile Include="WS2811.cs" />
